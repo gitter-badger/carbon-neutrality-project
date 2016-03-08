@@ -13,15 +13,17 @@ This is a starter box for a default Rails application styled optionally with Boo
 
 1. Edit the new `Vagrantfile` to set the IP address and project name.
 
-1. Start up your vagrant machine and let it provision services.  _NOTE_: This may take some time to complete
+1. Edit the `Gemfile` to pick your styling framework. Comment out Bootstrap (default) and uncomment the Foundation block to use Foundation instead.
+
+1. Start up your vagrant machine and let it provision services.  _NOTE_: This will typically take between 4 and 30 minutes depending on network connection and internal storage read/write speed.
 
         $ vagrant up
 
-1. After the 'vagrant up' finished, ssh into your Vagrant instance
+1. After the 'vagrant up' finishes, ssh into your Vagrant instance.
 
         $ vagrant ssh
 
-1. Run Bundle Install in your /vagrant directory to install gems
+1. Run Bundle Install in your /vagrant directory to install gems.
 
         $ bundle install
 

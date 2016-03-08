@@ -14,7 +14,7 @@ gem 'bootstrap-sass'
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-multiselect-rails'
 
-# Use Foundation 5 for styling framework
+# Comment out the bootstrap block and uncomment this one to use Foundation 5 for styling framework
 # gem 'foundation-rails'
 # Installs the Foundation font icons
 # gem 'foundation-icons-sass-rails'
