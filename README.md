@@ -1,5 +1,7 @@
 #Carbon Neutrality Project
 
+[![Join the chat at https://gitter.im/TheDeepEnd/carbon-neutrality-project](https://badges.gitter.im/TheDeepEnd/carbon-neutrality-project.svg)](https://gitter.im/TheDeepEnd/carbon-neutrality-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 #Rails Vagrant Box
 
 This is a starter box for a default Rails application styled optionally with Bootstrap or with Foundation
