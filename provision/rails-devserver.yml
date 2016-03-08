@@ -1,0 +1,84 @@
+#Ansible Playbook to setup Ruby, Apache/Passenger, and MySQL on Ubuntu 14.04LT
+---
+- hosts: all
+  vars:
+    ruby_version: 2.0
+    mysql_version: 5.5
+    mysql_user: vagrant
+    mysql_password: vagrant
+  sudo: yes
+  tasks:
+  - name: Install essential tools
+    apt: pkg=build-essential,git-core,apt-transport-https,vim,libssl-dev,libreadline-dev,zlib1g-dev state=latest update_cache=yes cache_valid_time=3600
+
+  - name: Install ruby {{ruby_version}}
+    apt: pkg=ruby{{ruby_version}},ruby{{ruby_version}}-dev state=latest update_cache=yes cache_valid_time=3600
+
+  - name: Delete default ruby
+    file: dest=/usr/bin/ruby state=absent
+
+  - name: Create symlink to ruby{{ruby_version}}
+    file: src=/usr/bin/ruby{{ruby_version}} dest=/usr/bin/ruby state=link
+
+  - name: Delete default gem
+    file: dest=/usr/bin/gem state=absent
+
+  - name: Create symlink to gem{{ruby_version}}
+    file: src=/usr/bin/gem{{ruby_version}} dest=/usr/bin/gem state=link
+
+  - name: Copy global profile
+    copy: src=/vagrant/provision/global.sh dest=/etc/profile.d/global.sh
+
+  - name: Download rbenv
+    git: repo=git://github.com/sstephenson/rbenv.git dest=/usr/local/rbenv
+
+  - name: Download ruby-build
+    git: repo=git://github.com/sstephenson/ruby-build.git dest=/usr/local/rbenv/plugins/ruby-build
+
+  - name: Set default ruby version
+    shell: /bin/bash -lc "rbenv global system"
+
+#  - name: Install ruby{{ruby_version}} with rbenv
+#    shell: creates=/usr/local/rbenv/versions/{{ruby_version}} /bin/bash -lc "rbenv install {{ruby_version}} && rbenv rehash && rbenv global {{ruby_version}}"
+
+  - name: Enable rbenv commands for sudoers
+    copy: src=/vagrant/provision/00-rbenv dest=/etc/sudoers.d/00-rbenv owner=root mode=0600
+
+  - name: Add Phusion repository
+    copy: src=/vagrant/provision/passenger.list dest=/etc/apt/sources.list.d/passenger.list owner=root mode=0600
+
+  - name: Add public key for Phusion repository
+    shell: apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
+
+  - name: Install Passenger/Apache
+    apt: pkg=apache2,libapache2-mod-passenger state=latest update_cache=yes
+
+  - name: Disable default virtual host
+    shell: a2dissite 000-default
+
+  - name: Add custom virtual host
+    copy: src=/vagrant/provision/000-default.conf dest=/etc/apache2/sites-available/000-default.conf
+
+  - name: Enable custom virtual host
+    shell: a2ensite 000-default
+
+  - name: Restart apache
+    service: name=apache2 state=restarted
+
+  - name: Install mysql {{mysql_version}}
+    shell: creates=/usr/sbin/mysqld echo "mysql-server-{{mysql_version}} mysql-server/root_password password {{mysql_password}}" | debconf-set-selections;echo "mysql-server-{{mysql_version}} mysql-server/root_password_again password {{mysql_password}}" | debconf-set-selections;apt-get -y install mysql-server-{{mysql_version}}
+
+  - name: Install mysql library
+    apt: pkg=libmysqlclient-dev state=latest update_cache=yes
+
+  - name: Add a mysql user {{mysql_user}}
+    shell: mysql --user=root --password='{{mysql_password}}' -e "GRANT ALL PRIVILEGES ON *.* TO '{{mysql_user}}'@'%' IDENTIFIED BY '{{mysql_password}}' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+
+  - name: Update mysql config to allow remote connections
+    shell: sed -i "s/^bind-address/#bind-address/" /etc/mysql/my.cnf
+
+  - name: Restart mysql
+    service: name=mysql state=restarted
+
+  - name: Install bundler
+    shell: sudo gem install bundler --no-rdoc --no-ri
