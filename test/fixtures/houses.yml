@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  profile_id: 
+  electricity: 9.99
+  fuel: 9.99
+  gas: 9.99
+  water: 9.99
+
+two:
+  profile_id: 
+  electricity: 9.99
+  fuel: 9.99
+  gas: 9.99
+  water: 9.99

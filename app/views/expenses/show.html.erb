@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @expense.profile %>
+</p>
+
+<p>
+  <strong>Clothing:</strong>
+  <%= @expense.clothing %>
+</p>
+
+<p>
+  <strong>Healthcare:</strong>
+  <%= @expense.healthcare %>
+</p>
+
+<p>
+  <strong>Vehicle:</strong>
+  <%= @expense.vehicle %>
+</p>
+
+<p>
+  <strong>Home maintenance:</strong>
+  <%= @expense.home_maintenance %>
+</p>
+
+<%= link_to 'Edit', edit_expense_path(@expense) %> |
+<%= link_to 'Back', expenses_path %>

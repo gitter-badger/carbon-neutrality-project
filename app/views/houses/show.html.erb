@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @house.profile %>
+</p>
+
+<p>
+  <strong>Electricity:</strong>
+  <%= @house.electricity %>
+</p>
+
+<p>
+  <strong>Fuel:</strong>
+  <%= @house.fuel %>
+</p>
+
+<p>
+  <strong>Gas:</strong>
+  <%= @house.gas %>
+</p>
+
+<p>
+  <strong>Water:</strong>
+  <%= @house.water %>
+</p>
+
+<%= link_to 'Edit', edit_house_path(@house) %> |
+<%= link_to 'Back', houses_path %>

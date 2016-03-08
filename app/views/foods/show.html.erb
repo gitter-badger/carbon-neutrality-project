@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @food.profile %>
+</p>
+
+<p>
+  <strong>Red meat:</strong>
+  <%= @food.red_meat %>
+</p>
+
+<p>
+  <strong>Poultry:</strong>
+  <%= @food.poultry %>
+</p>
+
+<p>
+  <strong>Seafood:</strong>
+  <%= @food.seafood %>
+</p>
+
+<p>
+  <strong>Vegetables:</strong>
+  <%= @food.vegetables %>
+</p>
+
+<p>
+  <strong>Milk:</strong>
+  <%= @food.milk %>
+</p>
+
+<p>
+  <strong>Other drinks:</strong>
+  <%= @food.other_drinks %>
+</p>
+
+<%= link_to 'Edit', edit_food_path(@food) %> |
+<%= link_to 'Back', foods_path %>

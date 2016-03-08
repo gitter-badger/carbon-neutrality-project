@@ -1,0 +1,17 @@
+<%= simple_form_for(@food) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :profile %>
+    <%= f.input :red_meat %>
+    <%= f.input :poultry %>
+    <%= f.input :seafood %>
+    <%= f.input :vegetables %>
+    <%= f.input :milk %>
+    <%= f.input :other_drinks %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

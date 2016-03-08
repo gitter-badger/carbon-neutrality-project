@@ -1,0 +1,15 @@
+<%= simple_form_for(@expense) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :profile %>
+    <%= f.input :clothing %>
+    <%= f.input :healthcare %>
+    <%= f.input :vehicle %>
+    <%= f.input :home_maintenance %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
