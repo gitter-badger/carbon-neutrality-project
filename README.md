@@ -1,3 +1,5 @@
+#Carbon Neutrality Project
+
 #Rails Vagrant Box
 
 This is a starter box for a default Rails application styled optionally with Bootstrap or with Foundation
